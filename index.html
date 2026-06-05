@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParisAI Labs — AI Email Intelligence for E-Commerce</title>
+  <meta name="description" content="AI-powered email intelligence platform helping e-commerce brands identify and engage high-intent prospects through personalization at scale.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --accent: #6c63ff;
+      --accent-light: #8b83ff;
+      --text: #e0e0e0;
+      --text-muted: #a0a0b0;
+      --bg: #0f0f1a;
+      --card-bg: #1a1a2e;
+      --border: #2a2a40;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Header */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent); }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 32px;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent-light); }
+
+    /* Hero */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 0%, #6c63ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover { background: var(--accent-light); transform: translateY(-2px); }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat { text-align: center; }
+    .stat .number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat .label {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 48px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+    }
+    .feature-card .icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Tech Stack */
+    .tech {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .tech h2 { font-size: 1.5rem; margin-bottom: 24px; }
+    .tech-logos {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .tech-logos span {
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .stats, .feature-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">Paris<span>AI</span> Labs</div>
+      <nav>
+        <a href="#product">Product</a>
+        <a href="#technology">Technology</a>
+        <a href="mailto:pierre@parisailabs.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>AI Email Intelligence<br>for E-Commerce</h1>
+      <p>We help e-commerce brands identify and engage high-intent prospects through AI-driven personalization at scale. Built on AWS Bedrock.</p>
+      <a href="mailto:pierre@parisailabs.com" class="cta-btn">Get in Touch</a>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+      <div class="stat">
+        <div class="number">15K+</div>
+        <div class="label">Emails Processed</div>
+      </div>
+      <div class="stat">
+        <div class="number">3.6%</div>
+        <div class="label">Lead Conversion Rate</div>
+      </div>
+      <div class="stat">
+        <div class="number">&lt;2s</div>
+        <div class="label">Avg. Processing Time</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="product">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">🔍</div>
+          <h3>AI Lead Scoring</h3>
+          <p>Natural language processing identifies high-intent prospects from email interactions, scoring leads by purchase readiness and engagement signals.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✉️</div>
+          <h3>Personalized Outreach</h3>
+          <p>Generate hyper-personalized email sequences tailored to each prospect's interests, behavior patterns, and buying stage.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Conversion Analytics</h3>
+          <p>Real-time dashboards tracking open rates, engagement depth, and conversion attribution across your entire email funnel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech" id="technology">
+    <div class="container">
+      <h2>Built on Enterprise Infrastructure</h2>
+      <div class="tech-logos">
+        <span>AWS Bedrock</span>
+        <span>Amazon SES</span>
+        <span>AWS Lambda</span>
+        <span>Python</span>
+        <span>PostgreSQL</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 ParisAI Labs. Paris, France. <a href="mailto:pierre@parisailabs.com">pierre@parisailabs.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>
