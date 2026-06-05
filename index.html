@@ -3,257 +3,386 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ParisAI Labs — AI Email Intelligence for E-Commerce</title>
-  <meta name="description" content="AI-powered email intelligence platform helping e-commerce brands identify and engage high-intent prospects through personalization at scale.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+  <title>ParisAI Labs — AI-Powered Email Intelligence for E-Commerce</title>
+  <meta name="description" content="ParisAI Labs builds AI email intelligence that helps e-commerce brands convert prospects into customers. NLP-powered lead scoring and personalized outreach at scale.">
+  <meta name="keywords" content="AI email, email intelligence, e-commerce AI, lead scoring, NLP, personalized email, AWS Bedrock">
+  <meta name="author" content="Pierre Richard">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://parisai.xyz/">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="ParisAI Labs — AI Email Intelligence">
+  <meta property="og:description" content="AI-powered lead scoring and personalized outreach for e-commerce brands.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://parisai.xyz/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="ParisAI Labs">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ParisAI Labs — AI Email Intelligence">
+  <meta name="twitter:description" content="NLP-powered lead scoring and personalized email outreach for e-commerce.">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ParisAI Labs",
+    "url": "https://parisai.xyz",
+    "logo": "https://parisai.xyz/logo.svg",
+    "description": "AI-powered email intelligence platform for e-commerce brands",
+    "foundingDate": "2025-03",
+    "founder": {
+      "@type": "Person",
+      "name": "Pierre Richard",
+      "jobTitle": "CEO & Founder"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Paris",
+      "addressCountry": "FR"
+    },
+    "sameAs": []
+  }
+  </script>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='80'>⚡</text></svg>">
   <style>
     :root {
-      --primary: #1a1a2e;
-      --accent: #6c63ff;
-      --accent-light: #8b83ff;
-      --text: #e0e0e0;
-      --text-muted: #a0a0b0;
-      --bg: #0f0f1a;
-      --card-bg: #1a1a2e;
-      --border: #2a2a40;
+      --primary: #1e293b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --text: #334155;
+      --text-light: #64748b;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --border: #e2e8f0;
+      --radius: 8px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; color: var(--text); line-height: 1.7; background: var(--bg); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
     
-    /* Header */
-    header {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text);
-    }
+    /* Nav */
+    nav { padding: 16px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); z-index: 100; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
     .logo span { color: var(--accent); }
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-left: 32px;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--accent-light); }
-
+    .nav-links { display: flex; gap: 28px; font-size: 0.9rem; }
+    .nav-links a { color: var(--text-light); }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+    
     /* Hero */
-    .hero {
-      padding: 100px 0 80px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, #fff 0%, #6c63ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 640px;
-      margin: 0 auto 40px;
-    }
-    .cta-btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      padding: 14px 36px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.05rem;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .cta-btn:hover { background: var(--accent-light); transform: translateY(-2px); }
-
-    /* Stats */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .stat { text-align: center; }
-    .stat .number {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-    .stat .label {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
+    .hero { padding: 80px 0 60px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
+    .hero h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; color: var(--primary); margin-bottom: 20px; }
+    .hero p { font-size: 1.1rem; color: var(--text-light); margin-bottom: 28px; }
+    .btn { display: inline-block; background: var(--accent); color: #fff; padding: 12px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.95rem; transition: background 0.2s; }
+    .btn:hover { background: var(--accent-hover); text-decoration: none; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); margin-left: 12px; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-visual { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 32px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: var(--text-light); line-height: 1.8; }
+    
+    /* Metrics */
+    .metrics { padding: 48px 0; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+    .metric-value { font-size: 2rem; font-weight: 800; color: var(--primary); }
+    .metric-label { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
+    
+    /* Sections */
+    section { padding: 72px 0; }
+    section h2 { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+    section .subtitle { font-size: 1.05rem; color: var(--text-light); margin-bottom: 40px; max-width: 640px; }
+    
     /* Features */
-    .features {
-      padding: 80px 0;
-    }
-    .features h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 48px;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-    .feature-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-    }
-    .feature-card .icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
-    }
-    .feature-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 12px;
-    }
-    .feature-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* Tech Stack */
-    .tech {
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-    .tech h2 { font-size: 1.5rem; margin-bottom: 24px; }
-    .tech-logos {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-    .tech-logos span {
-      padding: 10px 20px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-    }
-
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .feature { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .feature h3 { font-size: 1rem; margin: 12px 0 8px; color: var(--primary); }
+    .feature p { font-size: 0.9rem; color: var(--text-light); }
+    .feature-icon { width: 40px; height: 40px; background: #eff6ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    
+    /* How it works */
+    .steps { counter-reset: step; }
+    .step { display: flex; gap: 24px; margin-bottom: 32px; align-items: flex-start; }
+    .step-num { counter-increment: step; flex-shrink: 0; width: 36px; height: 36px; background: var(--accent); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+    .step-num::after { content: counter(step); }
+    .step-content h3 { font-size: 1rem; margin-bottom: 4px; }
+    .step-content p { font-size: 0.9rem; color: var(--text-light); }
+    
+    /* Tech */
+    .tech-stack { display: flex; gap: 16px; flex-wrap: wrap; }
+    .tech-badge { padding: 8px 16px; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text); }
+    
+    /* Team */
+    .team-card { display: flex; gap: 20px; align-items: center; background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; max-width: 480px; }
+    .team-avatar { width: 64px; height: 64px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.5rem; }
+    .team-info h3 { font-size: 1rem; }
+    .team-info p { font-size: 0.85rem; color: var(--text-light); }
+    
+    /* Blog */
+    .blog-post { background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+    .blog-post h3 { font-size: 1rem; margin-bottom: 8px; }
+    .blog-post .meta { font-size: 0.8rem; color: var(--text-light); margin-bottom: 8px; }
+    .blog-post p { font-size: 0.9rem; color: var(--text-light); }
+    
+    /* CTA */
+    .cta-section { background: var(--primary); color: #fff; text-align: center; padding: 64px 24px; border-radius: 12px; margin: 48px 0; }
+    .cta-section h2 { color: #fff; margin-bottom: 16px; }
+    .cta-section p { color: #94a3b8; margin-bottom: 28px; }
+    .cta-section .btn { background: #fff; color: var(--primary); }
+    
     /* Footer */
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-
-    /* Responsive */
+    footer { padding: 40px 0; border-top: 1px solid var(--border); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); }
+    .footer-col a { display: block; font-size: 0.9rem; color: var(--text-light); margin-bottom: 8px; }
+    .footer-col p { font-size: 0.85rem; color: var(--text-light); }
+    .copyright { text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-light); }
+    
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
-      .stats, .feature-grid { grid-template-columns: 1fr; }
-      nav { display: none; }
+      .hero-grid, .features-grid, .metrics-grid, .footer-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.8rem; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
-  <header>
+  <nav>
     <div class="container">
       <div class="logo">Paris<span>AI</span> Labs</div>
-      <nav>
+      <div class="nav-links">
         <a href="#product">Product</a>
+        <a href="#how-it-works">How It Works</a>
         <a href="#technology">Technology</a>
-        <a href="mailto:pierre@parisailabs.com">Contact</a>
-      </nav>
+        <a href="#team">Team</a>
+        <a href="#blog">Updates</a>
+        <a href="mailto:pierre@parisai.xyz">Contact</a>
+      </div>
     </div>
-  </header>
+  </nav>
 
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <h1>AI Email Intelligence<br>for E-Commerce</h1>
-      <p>We help e-commerce brands identify and engage high-intent prospects through AI-driven personalization at scale. Built on AWS Bedrock.</p>
-      <a href="mailto:pierre@parisailabs.com" class="cta-btn">Get in Touch</a>
-    </div>
-  </section>
-
-  <section class="stats">
-    <div class="container" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
-      <div class="stat">
-        <div class="number">15K+</div>
-        <div class="label">Emails Processed</div>
-      </div>
-      <div class="stat">
-        <div class="number">3.6%</div>
-        <div class="label">Lead Conversion Rate</div>
-      </div>
-      <div class="stat">
-        <div class="number">&lt;2s</div>
-        <div class="label">Avg. Processing Time</div>
+      <div class="hero-grid">
+        <div>
+          <h1>Turn cold outreach into warm conversations with AI</h1>
+          <p>ParisAI Labs builds email intelligence that identifies high-intent e-commerce prospects and generates personalized outreach that converts. Built on AWS Bedrock, processing thousands of signals per second.</p>
+          <a href="mailto:pierre@parisai.xyz" class="btn">Request Early Access</a>
+          <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
+        </div>
+        <div class="hero-visual">
+          <div style="margin-bottom:12px;color:#3b82f6;">// Live pipeline output</div>
+          <div>→ Ingested 847 prospects from Shopify store</div>
+          <div>→ NLP scoring: 23 high-intent (confidence &gt;0.85)</div>
+          <div>→ Generated 23 personalized sequences</div>
+          <div>→ Sent via SES (deliverability: 99.2%)</div>
+          <div>→ Results: 4 replies, 2 meetings booked</div>
+          <div style="margin-top:12px;color:#22c55e;">✓ Pipeline complete — 8.7% reply rate</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="features" id="product">
+  <!-- Metrics -->
+  <div class="metrics">
     <div class="container">
-      <h2>How It Works</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="icon">🔍</div>
-          <h3>AI Lead Scoring</h3>
-          <p>Natural language processing identifies high-intent prospects from email interactions, scoring leads by purchase readiness and engagement signals.</p>
+      <div class="metrics-grid">
+        <div><div class="metric-value">15K+</div><div class="metric-label">Emails Processed</div></div>
+        <div><div class="metric-value">3.6%</div><div class="metric-label">Prospect → Lead</div></div>
+        <div><div class="metric-value">99.2%</div><div class="metric-label">Deliverability</div></div>
+        <div><div class="metric-value">&lt;1.8s</div><div class="metric-label">Scoring Latency</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product -->
+  <section id="product">
+    <div class="container">
+      <h2>What we build</h2>
+      <p class="subtitle">An end-to-end AI pipeline that replaces manual prospecting with intelligent, automated outreach that respects your brand voice.</p>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>Intent Scoring Engine</h3>
+          <p>Our NLP models analyze prospect behavior, website activity, and public signals to score purchase intent on a 0-100 scale. Only high-confidence leads enter your pipeline.</p>
         </div>
-        <div class="feature-card">
-          <div class="icon">✉️</div>
-          <h3>Personalized Outreach</h3>
-          <p>Generate hyper-personalized email sequences tailored to each prospect's interests, behavior patterns, and buying stage.</p>
+        <div class="feature">
+          <div class="feature-icon">✍️</div>
+          <h3>Personalized Generation</h3>
+          <p>Each email is uniquely crafted using the prospect's context — their products, recent activity, and pain points. No templates, no generic copy.</p>
         </div>
-        <div class="feature-card">
-          <div class="icon">📊</div>
+        <div class="feature">
+          <div class="feature-icon">📈</div>
           <h3>Conversion Analytics</h3>
-          <p>Real-time dashboards tracking open rates, engagement depth, and conversion attribution across your entire email funnel.</p>
+          <p>Track the full funnel from first touch to reply. See which signals predict conversion and which messaging angles resonate with each segment.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <h3>Deliverability First</h3>
+          <p>Domain warming, reputation monitoring, and smart throttling built in. We maintain 99%+ inbox placement because great emails only work if they arrive.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔗</div>
+          <h3>Shopify & Platform Integrations</h3>
+          <p>Connect your store in one click. We pull product catalog, customer data, and behavioral signals to enrich prospect profiles automatically.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-Time Processing</h3>
+          <p>New prospects are scored and sequenced within seconds of entering the system. No batch delays. AWS Lambda event-driven architecture handles any volume.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="tech" id="technology">
+  <!-- How It Works -->
+  <section id="how-it-works" style="background: var(--bg-alt);">
     <div class="container">
-      <h2>Built on Enterprise Infrastructure</h2>
-      <div class="tech-logos">
-        <span>AWS Bedrock</span>
-        <span>Amazon SES</span>
-        <span>AWS Lambda</span>
-        <span>Python</span>
-        <span>PostgreSQL</span>
+      <h2>How it works</h2>
+      <p class="subtitle">From raw prospect data to booked meetings in four steps.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Connect your data sources</h3>
+            <p>Link your Shopify store, CRM, or upload a prospect list. Our system ingests product catalogs, customer segments, and behavioral data to build rich prospect profiles.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>AI scores and qualifies</h3>
+            <p>Our fine-tuned NLP models analyze each prospect across 40+ signals: website content, social presence, tech stack, growth indicators, and buying patterns. Only prospects with confidence &gt;0.7 proceed.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Personalized sequences generated</h3>
+            <p>AWS Bedrock generates unique, context-aware email sequences for each qualified prospect. Every message references specific details about their business — no generic outreach.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Send, track, optimize</h3>
+            <p>Emails are delivered via Amazon SES with optimal timing. Responses are classified automatically. Positive replies surface instantly. The system learns from every interaction to improve over time.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Technology -->
+  <section id="technology">
+    <div class="container">
+      <h2>Built on enterprise infrastructure</h2>
+      <p class="subtitle">We use AWS services for reliability, security, and scale. No vendor lock-in — standard protocols, exportable data.</p>
+      <div class="tech-stack">
+        <span class="tech-badge">AWS Bedrock (Claude, Titan)</span>
+        <span class="tech-badge">Amazon SES</span>
+        <span class="tech-badge">AWS Lambda</span>
+        <span class="tech-badge">DynamoDB</span>
+        <span class="tech-badge">Python 3.12</span>
+        <span class="tech-badge">PostgreSQL</span>
+        <span class="tech-badge">EventBridge</span>
+        <span class="tech-badge">CloudWatch</span>
+      </div>
+      <div style="margin-top: 32px;">
+        <h3 style="font-size: 1rem; margin-bottom: 12px;">Architecture highlights</h3>
+        <ul style="list-style: none; font-size: 0.9rem; color: var(--text-light);">
+          <li style="margin-bottom: 8px;">→ Event-driven serverless — scales from 0 to 10K emails/hour with zero idle cost</li>
+          <li style="margin-bottom: 8px;">→ Multi-model inference — Bedrock for generation, custom models for classification</li>
+          <li style="margin-bottom: 8px;">→ SOC 2 compliant infrastructure — data encrypted at rest and in transit</li>
+          <li style="margin-bottom: 8px;">→ 99.9% uptime SLA on all customer-facing services</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team" style="background: var(--bg-alt);">
+    <div class="container">
+      <h2>Team</h2>
+      <p class="subtitle">Small team, deep expertise. We've spent years building email systems and ML pipelines at scale.</p>
+      <div class="team-card">
+        <div class="team-avatar">PR</div>
+        <div class="team-info">
+          <h3>Pierre Richard</h3>
+          <p><strong>Founder & CEO</strong></p>
+          <p>ML engineer with background in NLP and large-scale email systems. Previously built email delivery infrastructure processing 50M+ messages/month. Based in Paris.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog / Updates -->
+  <section id="blog">
+    <div class="container">
+      <h2>Latest updates</h2>
+      <p class="subtitle">Building in public. Here's what we're working on.</p>
+      <div class="blog-post">
+        <div class="meta">June 2, 2025 · Product</div>
+        <h3>Launching our beta: AI-powered lead scoring for Shopify stores</h3>
+        <p>After three months of development and testing with early design partners, we're opening our beta to select Shopify merchants. Our NLP pipeline now processes 15K+ emails with a 3.6% conversion rate from cold prospect to interested lead — about 4x the industry average for automated outreach.</p>
+      </div>
+      <div class="blog-post">
+        <div class="meta">April 15, 2025 · Technical</div>
+        <h3>Why we chose AWS Bedrock over self-hosted models</h3>
+        <p>When we started building our inference pipeline, we evaluated self-hosting open models vs. managed services. The math was clear: at our current scale (sub-1M tokens/day), Bedrock's pay-per-use model costs 70% less than maintaining GPU instances, with better latency and zero ops overhead.</p>
+      </div>
+      <div class="blog-post">
+        <div class="meta">March 15, 2025 · Company</div>
+        <h3>Hello world: introducing ParisAI Labs</h3>
+        <p>Today we're officially launching ParisAI Labs. Our mission: make intelligent email outreach accessible to every e-commerce brand, not just those with dedicated sales teams. We're starting with Shopify merchants and expanding from there.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="container">
+    <div class="cta-section">
+      <h2>Ready to transform your outreach?</h2>
+      <p>We're onboarding select e-commerce brands for our beta. No credit card required.</p>
+      <a href="mailto:pierre@parisai.xyz" class="btn">Request Access</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 ParisAI Labs. Paris, France. <a href="mailto:pierre@parisailabs.com">pierre@parisailabs.com</a></p>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 12px;">Paris<span>AI</span> Labs</div>
+          <p>AI email intelligence for e-commerce brands. Based in Paris, France. Building the future of B2B outreach.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#product">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#technology">Technology</a>
+          <a href="mailto:pierre@parisai.xyz">Request Access</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#team">Team</a>
+          <a href="#blog">Blog</a>
+          <a href="mailto:pierre@parisai.xyz">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:pierre@parisai.xyz">pierre@parisai.xyz</a>
+          <p style="margin-top: 8px;">Paris, France</p>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 ParisAI Labs SAS. All rights reserved.
+      </div>
     </div>
   </footer>
 </body>
