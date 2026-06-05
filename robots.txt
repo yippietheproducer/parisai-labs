@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://parisai.xyz/sitemap.xml
