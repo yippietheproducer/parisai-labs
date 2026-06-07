@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://parisai.xyz/sitemap.xml
+# Explicitly allow Amazonbot (required for AWS Activate verification)
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://parisai.click/sitemap.xml

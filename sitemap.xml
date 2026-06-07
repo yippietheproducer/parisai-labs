@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://parisai.xyz/</loc>
-    <lastmod>2025-06-05</lastmod>
+    <loc>https://parisai.click/</loc>
+    <lastmod>2025-06-07</lastmod>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://parisai.click/privacy.html</loc>
+    <lastmod>2025-03-15</lastmod>
+    <priority>0.5</priority>
   </url>
 </urlset>
