@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://parisai.click/</loc><lastmod>2026-06-15</lastmod><priority>1.0</priority></url>
-  <url><loc>https://parisai.click/blog/</loc><lastmod>2026-06-15</lastmod><priority>0.9</priority></url>
-  <url><loc>https://parisai.click/research/</loc><lastmod>2026-06-15</lastmod><priority>0.8</priority></url>
-  <url><loc>https://parisai.click/case-studies/</loc><lastmod>2026-06-15</lastmod><priority>0.8</priority></url>
-  <url><loc>https://parisai.click/pricing/</loc><lastmod>2026-06-15</lastmod><priority>0.8</priority></url>
-  <url><loc>https://parisai.click/privacy.html</loc><lastmod>2026-06-15</lastmod><priority>0.3</priority></url>
-  <url><loc>https://parisai.click/pitch-deck.html</loc><lastmod>2026-06-15</lastmod><priority>0.4</priority></url>
-  <url><loc>https://parisai.click/blog/why-llm-personalization-beats-templates/</loc><lastmod>2025-06-12</lastmod><priority>0.6</priority></url>
-  <url><loc>https://parisai.click/blog/intent-scoring-on-shopify-stores/</loc><lastmod>2025-06-04</lastmod><priority>0.6</priority></url>
-  <url><loc>https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/</loc><lastmod>2025-05-28</lastmod><priority>0.6</priority></url>
-  <url><loc>https://parisai.click/blog/email-deliverability-warmup-2025/</loc><lastmod>2025-05-14</lastmod><priority>0.6</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/</loc><lastmod>2026-06-15</lastmod><priority>1.0</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/blog/</loc><lastmod>2026-06-15</lastmod><priority>0.9</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/research/</loc><lastmod>2026-06-15</lastmod><priority>0.8</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/case-studies/</loc><lastmod>2026-06-15</lastmod><priority>0.8</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/pricing/</loc><lastmod>2026-06-15</lastmod><priority>0.8</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/privacy.html</loc><lastmod>2026-06-15</lastmod><priority>0.3</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/pitch-deck.html</loc><lastmod>2026-06-15</lastmod><priority>0.4</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/blog/why-llm-personalization-beats-templates/</loc><lastmod>2025-06-12</lastmod><priority>0.6</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/blog/intent-scoring-on-shopify-stores/</loc><lastmod>2025-06-04</lastmod><priority>0.6</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/blog/aws-bedrock-vs-self-hosted-inference/</loc><lastmod>2025-05-28</lastmod><priority>0.6</priority></url>
+  <url><loc>https://yippietheproducer.github.io/parisai-labs/blog/email-deliverability-warmup-2025/</loc><lastmod>2025-05-14</lastmod><priority>0.6</priority></url>
 </urlset>
