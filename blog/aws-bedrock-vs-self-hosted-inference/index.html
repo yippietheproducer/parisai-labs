@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day — ParisAI Labs</title>
+  <meta name="description" content="Llama-3-70B on g5.12xlarge vs Bedrock pay-per-use. Why managed inference wins until you hit a very specific scale.">
+  <meta name="author" content="Pierre Richard">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/">
+  <meta property="og:title" content="AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day">
+  <meta property="og:description" content="Llama-3-70B on g5.12xlarge vs Bedrock pay-per-use. Why managed inference wins until you hit a very specific scale.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/">
+  <meta property="article:published_time" content="2025-05-28">
+  <meta property="article:author" content="Pierre Richard">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day">
+  <meta name="twitter:description" content="Llama-3-70B on g5.12xlarge vs Bedrock pay-per-use. Why managed inference wins until you hit a very specific scale.">
+  <meta property="og:image" content="https://parisai.click/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="ParisAI Labs">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:image" content="https://parisai.click/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='80'>⚡</text></svg>">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="alternate" type="application/rss+xml" title="ParisAI Labs Blog" href="https://parisai.click/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://parisai.click/#website","url":"https://parisai.click","name":"ParisAI Labs","description":"AI email intelligence for e-commerce brands","publisher":{"@id":"https://parisai.click/#organization"},"inLanguage":"en"},{"@type":"Organization","@id":"https://parisai.click/#organization","name":"ParisAI Labs","alternateName":"ParisAI Labs SAS","url":"https://parisai.click","logo":"https://parisai.click/og.svg","description":"AI-powered email intelligence platform for e-commerce brands","foundingDate":"2025-03","foundingLocation":{"@type":"Place","name":"Paris, France"},"address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"},"founder":{"@id":"https://parisai.click/#founder"},"email":"pierre@parisai.click"},{"@type":"Person","@id":"https://parisai.click/#founder","name":"Pierre Richard","jobTitle":"CEO & Founder","worksFor":{"@id":"https://parisai.click/#organization"}},{"@type":"BlogPosting","@id":"https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/#post","headline":"AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day","description":"Llama-3-70B on g5.12xlarge vs Bedrock pay-per-use. Why managed inference wins until you hit a very specific scale.","datePublished":"2025-05-28","dateModified":"2025-05-28","author":{"@id":"https://parisai.click/#founder"},"publisher":{"@id":"https://parisai.click/#organization"},"url":"https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/","image":"https://parisai.click/og.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/"},"articleSection":"technical"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parisai.click/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://parisai.click/blog/"},{"@type":"ListItem","position":3,"name":"AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day","item":"https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/"}]}]}</script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="logo" style="text-decoration:none">Paris<span>AI</span> Labs</a>
+      <div class="nav-links">
+        <a href="/#product">Product</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/research/">Research</a>
+        <a href="/blog/">Blog</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="mailto:pierre@parisai.click">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" style="font-size: 0.85rem; color: var(--text-light);">← All posts</a>
+    <h1>AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day</h1>
+    <div class="post-meta">2025-05-28 · technical · 5 min read · <a href="mailto:pierre@parisai.click">Pierre Richard</a></div>
+    <p>We rebuilt the inference layer in March and the question we kept running into was: do we self-host an open model on a GPU instance, or stay on AWS Bedrock and pay per token? The answer was unambiguous at our scale, but the threshold where it flips is closer than I expected. Here's the math.</p>
+<h2>The setup</h2>
+<p>The pipeline does roughly 800K input tokens and 120K output tokens per day across:</p>
+<ul>
+<li>prospect classification (Haiku-class, ~150 tokens out)</li>
+<li>email generation (Sonnet-class, ~600 tokens out)</li>
+<li>response classification (Haiku-class, ~50 tokens out)</li>
+</ul>
+<p>Mixed Haiku/Sonnet usage on Bedrock. For self-hosting we benchmarked Llama-3-70B-Instruct, which is the closest open equivalent to Sonnet for this kind of long-form generation work. Llama-3-8B-Instruct stands in for Haiku.</p>
+<h2>The Bedrock cost</h2>
+<p>At June 2025 list prices, per million tokens:</p>
+<ul>
+<li>Claude Haiku: $0.25 input / $1.25 output</li>
+<li>Claude Sonnet: $3.00 input / $15.00 output</li>
+</ul>
+<p>Our monthly Bedrock spend at this volume:</p>
+<pre><code>Haiku  : 600K in/d × 200K out/d × 30d × ($0.25/$1.25 per M)
+       =  $4.50 + $7.50 = $12/mo
+
+Sonnet : 200K in/d × 80K out/d × 30d × ($3.00/$15.00 per M)
+       = $18.00 + $36.00 = $54/mo
+
+Total Bedrock : ≈ $66/mo</code></pre>
+<p>Sixty-six dollars a month. That's the number to beat.</p>
+<h2>The self-host cost (g5.12xlarge)</h2>
+<p>For Llama-3-70B you want at least an <code>g5.12xlarge</code> (4× A10G, 96 GiB combined VRAM) to fit the model with vLLM and meaningful batching. List on-demand pricing, us-east-1: $5.672/hr.</p>
+<p>Run it 24/7:</p>
+<pre><code>g5.12xlarge × 730 hr/mo × $5.672/hr = $4,140/mo</code></pre>
+<p>A single instance, no redundancy, no auto-scaling buffer, no load balancer, no health-checks, no spot fallback. Self-host is <strong>62× more expensive</strong> than Bedrock at our volume.</p>
+<p>Even if you go full spot pricing (~70% discount, but with eviction risk you'd build dual-region failover for) you get to ~$1,240/mo. Still 19× Bedrock.</p>
+<h2>Where the line actually flips</h2>
+<p>Bedrock's marginal cost is constant — every extra million tokens of Sonnet costs exactly $18 more. Self-host's marginal cost is roughly zero per token until you saturate the GPU and have to add another instance.</p>
+<p>The break-even at full utilization (which means saturating one g5.12xlarge for the entire month, ~25–30 generation tokens/sec sustained):</p>
+<pre><code>Bedrock cost at saturation throughput
+  = 25 tokens/s × 86,400 s/d × 30 d × $15/M
+  = ~$972/mo  (output-only, ignoring input)
+
+Self-host (on-demand)
+  = $4,140/mo
+
+Break-even on-demand: ~110M output tokens/month
+                     ≈ 4M tokens/day sustained</code></pre>
+<p>Until you're sustaining about 4M generation tokens per day — i.e. roughly 30× our current volume — Bedrock wins on absolute dollars. With spot instances the break-even drops to about 1.2M tokens/day sustained, but you're now also paying with eviction risk and operational burn.</p>
+<h2>The other costs Bedrock spares you</h2>
+<p>Even if you cross the dollar break-even, the operational stack you don't pay for on Bedrock:</p>
+<ul>
+<li><strong>Capacity planning.</strong> Auto-scaling on g5 instances is genuinely hard because cold-start of a 70B model is ~3–5 minutes from instance boot to ready-to-serve.</li>
+<li><strong>Region/AZ resilience.</strong> Bedrock is multi-AZ by default. Self-host requires you to build it.</li>
+<li><strong>Model upgrades.</strong> Anthropic ships new Claude versions. Self-hosting means you re-evaluate, re-fine-tune, re-deploy.</li>
+<li><strong>Compliance.</strong> Bedrock inherits AWS's SOC 2, HIPAA, GDPR posture. Self-host inherits yours, which is harder.</li>
+<li><strong>Data residency.</strong> Bedrock has EU regions. We need this for our Paris-based GDPR posture.</li>
+</ul>
+<p>We priced these in at roughly 0.5 SRE FTE — about $80K/year — which alone would buy ~16,000 hours of g5.12xlarge time. Operationally, even at high volume, the math stays uncomfortable.</p>
+<h2>Where self-host genuinely wins</h2>
+<p>Three scenarios where I'd flip:</p>
+<p>1. <strong>You're at &gt;5M tokens/day sustained <em>and</em> have an SRE willing to own GPU ops full-time.</strong> The dollars start to matter at that volume. 2. <strong>You need to fine-tune on proprietary data and don't want it touching a third-party API.</strong> Bedrock supports custom models but with friction; self-host is cleaner. 3. <strong>You need sub-200ms first-token latency and you're willing to pay for it.</strong> Bedrock's Sonnet is great but isn't the lowest-latency option in the world.</p>
+<p>Otherwise, sub-1M tokens/day on Bedrock costs less than my Paris coffee budget. Done.</p>
+<h2>The pragmatic mid-path</h2>
+<p>For teams with mixed needs, we use one trick: <strong>Haiku for the broad sweep, Sonnet for the high-confidence prospects.</strong> 80% of our generation is Haiku at $1.25/M output; only the top-decile prospects (where the email actually matters) get Sonnet at $15/M.</p>
+<p>That's a 12× per-token cost difference for the same piece of email infrastructure. Spend the Sonnet budget where reply probability is highest. Spend the Haiku budget on the broad stroke.</p>
+<p>The right cost-control move at our scale isn't moving off Bedrock. It's moving <em>within</em> Bedrock toward the right model for the right slice of work.</p>
+    <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 32px;">
+      Want this on your prospect list? <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>.
+    </p>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 12px;">Paris<span>AI</span> Labs</div>
+          <p>AI email intelligence for e-commerce brands. Based in Paris, France.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/#product">Features</a>
+          <a href="/#how-it-works">How It Works</a>
+          <a href="/pricing/">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="/blog/">Blog</a>
+          <a href="/research/">Research</a>
+          <a href="/case-studies/">Case studies</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>
+          <p style="margin-top: 8px;">Paris, France</p>
+        </div>
+      </div>
+      <div class="copyright">&copy; 2026 ParisAI Labs SAS. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>

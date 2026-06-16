@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — ParisAI Labs</title>
+  <meta name="description" content="Field notes from ParisAI Labs on AI email intelligence, prospect scoring, deliverability, and what we are learning building on AWS Bedrock.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://parisai.click/blog/">
+  <meta property="og:title" content="Blog — ParisAI Labs">
+  <meta property="og:description" content="Field notes on AI email intelligence and prospect scoring.">
+  <meta property="og:url" content="https://parisai.click/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ParisAI Labs">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — ParisAI Labs">
+  <meta name="twitter:description" content="Field notes on AI email intelligence and prospect scoring.">
+  <meta property="og:image" content="https://parisai.click/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://parisai.click/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='80'>⚡</text></svg>">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="alternate" type="application/rss+xml" title="ParisAI Labs Blog" href="https://parisai.click/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://parisai.click/#website","url":"https://parisai.click","name":"ParisAI Labs","description":"AI email intelligence for e-commerce brands","publisher":{"@id":"https://parisai.click/#organization"},"inLanguage":"en"},{"@type":"Organization","@id":"https://parisai.click/#organization","name":"ParisAI Labs","alternateName":"ParisAI Labs SAS","url":"https://parisai.click","logo":"https://parisai.click/og.svg","description":"AI-powered email intelligence platform for e-commerce brands","foundingDate":"2025-03","foundingLocation":{"@type":"Place","name":"Paris, France"},"address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"},"founder":{"@id":"https://parisai.click/#founder"},"email":"pierre@parisai.click"},{"@type":"Person","@id":"https://parisai.click/#founder","name":"Pierre Richard","jobTitle":"CEO & Founder","worksFor":{"@id":"https://parisai.click/#organization"}},{"@type":"CollectionPage","@id":"https://parisai.click/blog/#collection","name":"Blog — ParisAI Labs","url":"https://parisai.click/blog/","isPartOf":{"@id":"https://parisai.click/#website"},"about":{"@id":"https://parisai.click/#organization"}},{"@type":"Blog","@id":"https://parisai.click/blog/#blog","name":"ParisAI Labs Blog","description":"Field notes on AI email intelligence, prospect scoring, and deliverability.","url":"https://parisai.click/blog/","publisher":{"@id":"https://parisai.click/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parisai.click/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://parisai.click/blog/"}]}]}</script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="logo" style="text-decoration:none">Paris<span>AI</span> Labs</a>
+      <div class="nav-links">
+        <a href="/#product">Product</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/research/">Research</a>
+        <a href="/blog/">Blog</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="mailto:pierre@parisai.click">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section style="padding: 64px 0 16px;">
+    <div class="container">
+      <span class="pill">Field notes</span>
+      <h1 style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-top: 14px;">Blog</h1>
+      <p style="color: var(--text-light); max-width: 680px; font-size: 1.05rem;">
+        Methodology posts on prospect scoring, deliverability lessons, and the occasional teardown of
+        why a campaign worked or didn't.
+      </p>
+    </div>
+  </section>
+
+  <section style="padding: 16px 0 80px;">
+    <div class="container">
+      <div class="post-list">
+        <a href="/blog/why-llm-personalization-beats-templates/" class="post-card"><div class="meta">2025-06-12 · methodology · 6 min read</div><h3>Why LLM-personalized email beats templates by 4×</h3><p>A 3.6% reply rate vs the industry's typical 0.9%, and what specifically about per-prospect generation drives the gap.</p></a>
+<a href="/blog/intent-scoring-on-shopify-stores/" class="post-card"><div class="meta">2025-06-04 · product · 7 min read</div><h3>Intent scoring on Shopify stores — 40 signals that actually predict reply</h3><p>From product catalog depth to checkout pixel presence, the signals we feed our scoring model and which ones turned out to be noise.</p></a>
+<a href="/blog/aws-bedrock-vs-self-hosted-inference/" class="post-card"><div class="meta">2025-05-28 · technical · 5 min read</div><h3>AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day</h3><p>Llama-3-70B on g5.12xlarge vs Bedrock pay-per-use. Why managed inference wins until you hit a very specific scale.</p></a>
+<a href="/blog/email-deliverability-warmup-2025/" class="post-card"><div class="meta">2025-05-14 · operations · 6 min read</div><h3>Email deliverability in 2025 — what changed, what still works</h3><p>Google's bulk-sender rules, Microsoft's tenant scoring shifts, and the warmup pattern we use to keep new sending domains above 99% inbox placement.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 12px;">Paris<span>AI</span> Labs</div>
+          <p>AI email intelligence for e-commerce brands. Based in Paris, France.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/#product">Features</a>
+          <a href="/pricing/">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="/blog/">Blog</a>
+          <a href="/research/">Research</a>
+          <a href="/case-studies/">Case studies</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>
+          <p style="margin-top: 8px;">Paris, France</p>
+        </div>
+      </div>
+      <div class="copyright">&copy; 2026 ParisAI Labs SAS.</div>
+    </div>
+  </footer>
+</body>
+</html>

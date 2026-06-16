@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParisAI Labs — NVIDIA Inception Pitch</title>
+<meta name="description" content="ParisAI Labs investor and NVIDIA Inception pitch deck — AI-powered email intelligence for e-commerce, built on AWS Bedrock.">
+<meta name="author" content="Pierre Richard">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://parisai.click/pitch-deck.html">
+<meta property="og:title" content="ParisAI Labs — NVIDIA Inception Pitch">
+<meta property="og:description" content="ParisAI Labs investor and NVIDIA Inception pitch deck — AI-powered email intelligence for e-commerce, built on AWS Bedrock.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://parisai.click/pitch-deck.html">
+<meta property="og:site_name" content="ParisAI Labs">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://parisai.click/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://parisai.click/og.png">
+<style>
+  @page { size: landscape; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .slide { width: 1280px; height: 720px; padding: 60px 80px; page-break-after: always; position: relative; display: flex; flex-direction: column; justify-content: center; }
+  .slide:last-child { page-break-after: avoid; }
+  .dark { background: #0f0f1a; color: #e0e0e0; }
+  .accent { color: #76b900; }
+  h1 { font-size: 48px; font-weight: 800; margin-bottom: 24px; line-height: 1.2; }
+  h2 { font-size: 36px; font-weight: 700; margin-bottom: 20px; }
+  p { font-size: 22px; line-height: 1.6; color: #a0a0b0; margin-bottom: 16px; }
+  .big-number { font-size: 64px; font-weight: 800; color: #76b900; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+  .grid-item { background: #1a1a2e; border-radius: 12px; padding: 30px; border: 1px solid #2a2a40; }
+  .grid-item h3 { font-size: 24px; margin-bottom: 12px; color: #fff; }
+  .grid-item p { font-size: 18px; }
+  .stats-row { display: flex; gap: 60px; margin-top: 40px; }
+  .stat { text-align: center; }
+  .stat .num { font-size: 48px; font-weight: 800; color: #76b900; }
+  .stat .label { font-size: 16px; color: #a0a0b0; margin-top: 8px; }
+  .tech-stack { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+  .tech-stack span { padding: 12px 24px; background: #1a1a2e; border: 1px solid #76b900; border-radius: 8px; font-size: 18px; color: #76b900; }
+  .footer { position: absolute; bottom: 30px; right: 60px; font-size: 14px; color: #555; }
+  .logo { font-size: 28px; font-weight: 700; position: absolute; top: 30px; left: 60px; }
+  .logo span { color: #76b900; }
+  ul { font-size: 22px; line-height: 2; color: #a0a0b0; list-style: none; }
+  ul li::before { content: "→ "; color: #76b900; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide dark">
+  <div class="logo">Paris<span>AI</span> Labs</div>
+  <h1>AI Email Intelligence<br>for <span class="accent">E-Commerce</span></h1>
+  <p>Turning outbound email into a precision AI system that identifies and converts high-intent prospects at scale.</p>
+  <p style="margin-top: 40px; color: #76b900; font-size: 18px;">NVIDIA Inception Application — June 2026</p>
+  <div class="footer">parisailabs.com | pierre@parisailabs.com</div>
+</div>
+
+<!-- SLIDE 2: Problem + Solution -->
+<div class="slide dark">
+  <div class="logo">Paris<span>AI</span> Labs</div>
+  <h2>The Problem & Our Solution</h2>
+  <div class="grid">
+    <div class="grid-item">
+      <h3>❌ The Problem</h3>
+      <p>E-commerce brands waste 90%+ of email outreach on unqualified prospects. Manual lead scoring doesn't scale. Generic emails get ignored.</p>
+    </div>
+    <div class="grid-item">
+      <h3>✅ Our Solution</h3>
+      <p>NLP-powered lead scoring + AI-personalized email sequences. Every prospect gets a unique, contextually relevant message based on behavioral signals.</p>
+    </div>
+  </div>
+  <div class="footer">parisailabs.com</div>
+</div>
+
+<!-- SLIDE 3: Traction -->
+<div class="slide dark">
+  <div class="logo">Paris<span>AI</span> Labs</div>
+  <h2>Traction & Metrics</h2>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="num">15K+</div>
+      <div class="label">Emails Processed</div>
+    </div>
+    <div class="stat">
+      <div class="num">3.6%</div>
+      <div class="label">Lead Conversion</div>
+    </div>
+    <div class="stat">
+      <div class="num">&lt;2s</div>
+      <div class="label">Processing Time</div>
+    </div>
+    <div class="stat">
+      <div class="num">4x</div>
+      <div class="label">vs Industry Avg</div>
+    </div>
+  </div>
+  <p style="margin-top: 40px;">Platform live since March 2025. Processing real customer data with measurable conversion improvement.</p>
+  <div class="footer">parisailabs.com</div>
+</div>
+
+<!-- SLIDE 4: Technology + GPU Need -->
+<div class="slide dark">
+  <div class="logo">Paris<span>AI</span> Labs</div>
+  <h2>Technology & <span class="accent">GPU Requirements</span></h2>
+  <div class="tech-stack">
+    <span>AWS Bedrock</span>
+    <span>LLM Inference</span>
+    <span>NLP Pipeline</span>
+    <span>Python</span>
+    <span>PostgreSQL</span>
+    <span>Lambda</span>
+  </div>
+  <div style="margin-top: 40px;">
+    <h3 style="font-size: 24px; margin-bottom: 16px; color: #fff;">Why We Need GPU Compute:</h3>
+    <ul>
+      <li>Fine-tuning custom email classification models (lead intent scoring)</li>
+      <li>Embedding generation for semantic prospect matching at scale</li>
+      <li>Real-time inference for personalized email generation (batch + streaming)</li>
+      <li>Scaling from 15K to 1M+ emails/month requires dedicated GPU inference</li>
+    </ul>
+  </div>
+  <div class="footer">parisailabs.com</div>
+</div>
+
+<!-- SLIDE 5: Team + Ask -->
+<div class="slide dark">
+  <div class="logo">Paris<span>AI</span> Labs</div>
+  <h2>Team & Ask</h2>
+  <div class="grid">
+    <div class="grid-item">
+      <h3>👤 Pierre Richard — CEO & Founder</h3>
+      <p>AI/ML engineer with deep experience in NLP, email systems, and scalable infrastructure. Built the entire platform from scratch.</p>
+    </div>
+    <div class="grid-item">
+      <h3>🎯 NVIDIA Inception Ask</h3>
+      <p>GPU credits for model fine-tuning and inference scaling. Access to NVIDIA DGX Cloud, technical support, and the Inception network for go-to-market partnerships.</p>
+    </div>
+  </div>
+  <p style="margin-top: 40px; font-size: 24px; color: #76b900;">Ready to scale AI email intelligence to 1M+ prospects/month with NVIDIA infrastructure.</p>
+  <div class="footer">parisailabs.com | Founded March 2025 | Paris, France</div>
+</div>
+
+</body>
+</html>

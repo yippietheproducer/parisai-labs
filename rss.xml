@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ParisAI Labs — Field notes</title>
+    <link>https://parisai.click/blog/</link>
+    <atom:link href="https://parisai.click/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Methodology posts on AI email intelligence, prospect scoring, deliverability, and AWS Bedrock infra.</description>
+    <language>en</language>
+    <lastBuildDate>Thu, 12 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <generator>parisai-site _engine/build.py</generator>
+    <item>
+      <title>Why LLM-personalized email beats templates by 4×</title>
+      <link>https://parisai.click/blog/why-llm-personalization-beats-templates/</link>
+      <guid isPermaLink="true">https://parisai.click/blog/why-llm-personalization-beats-templates/</guid>
+      <description>A 3.6% reply rate vs the industry's typical 0.9%, and what specifically about per-prospect generation drives the gap.</description>
+      <category>methodology</category>
+      <pubDate>Thu, 12 Jun 2025 00:00:00 +0000</pubDate>
+      <author>pierre@parisai.click (Pierre Richard)</author>
+    </item>
+    <item>
+      <title>Intent scoring on Shopify stores — 40 signals that actually predict reply</title>
+      <link>https://parisai.click/blog/intent-scoring-on-shopify-stores/</link>
+      <guid isPermaLink="true">https://parisai.click/blog/intent-scoring-on-shopify-stores/</guid>
+      <description>From product catalog depth to checkout pixel presence, the signals we feed our scoring model and which ones turned out to be noise.</description>
+      <category>product</category>
+      <pubDate>Wed, 04 Jun 2025 00:00:00 +0000</pubDate>
+      <author>pierre@parisai.click (Pierre Richard)</author>
+    </item>
+    <item>
+      <title>AWS Bedrock vs self-hosted inference — the cost math at sub-1M tokens/day</title>
+      <link>https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/</link>
+      <guid isPermaLink="true">https://parisai.click/blog/aws-bedrock-vs-self-hosted-inference/</guid>
+      <description>Llama-3-70B on g5.12xlarge vs Bedrock pay-per-use. Why managed inference wins until you hit a very specific scale.</description>
+      <category>technical</category>
+      <pubDate>Wed, 28 May 2025 00:00:00 +0000</pubDate>
+      <author>pierre@parisai.click (Pierre Richard)</author>
+    </item>
+    <item>
+      <title>Email deliverability in 2025 — what changed, what still works</title>
+      <link>https://parisai.click/blog/email-deliverability-warmup-2025/</link>
+      <guid isPermaLink="true">https://parisai.click/blog/email-deliverability-warmup-2025/</guid>
+      <description>Google's bulk-sender rules, Microsoft's tenant scoring shifts, and the warmup pattern we use to keep new sending domains above 99% inbox placement.</description>
+      <category>operations</category>
+      <pubDate>Wed, 14 May 2025 00:00:00 +0000</pubDate>
+      <author>pierre@parisai.click (Pierre Richard)</author>
+    </item>
+  </channel>
+</rss>

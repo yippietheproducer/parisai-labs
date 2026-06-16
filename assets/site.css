@@ -1,0 +1,206 @@
+/* ParisAI Labs — shared site CSS.
+   Lifted from / index.html to keep all subpages visually consistent.
+   Single file, no build step, deployable as static asset. */
+
+:root {
+  --primary: #1e293b;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --text: #334155;
+  --text-light: #64748b;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --border: #e2e8f0;
+  --radius: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text);
+  line-height: 1.7;
+  background: var(--bg);
+}
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Nav */
+nav {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; font-size: 0.9rem; }
+.nav-links a { color: var(--text-light); }
+.nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+/* Pill / chip */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 0.78rem; color: var(--text-light);
+  background: var(--bg-alt); border: 1px solid var(--border);
+}
+.pill.accent { background: #eff6ff; border-color: #bfdbfe; color: var(--accent); font-weight: 600; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff !important;
+  padding: 12px 28px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+.btn:hover { background: var(--accent-hover); text-decoration: none; }
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text) !important;
+  margin-left: 12px;
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent) !important; }
+
+/* Generic article body */
+article.post {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+article.post h1 {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+article.post h2 {
+  font-size: 1.35rem;
+  color: var(--primary);
+  margin: 32px 0 12px;
+}
+article.post h3 {
+  font-size: 1.05rem;
+  color: var(--primary);
+  margin: 24px 0 8px;
+}
+article.post p {
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+article.post ul, article.post ol {
+  padding-left: 22px;
+  margin-bottom: 16px;
+}
+article.post li { margin-bottom: 8px; }
+article.post code {
+  background: var(--bg-alt);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.88em;
+}
+article.post pre {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+article.post pre code { background: transparent; padding: 0; font-size: 0.86rem; }
+article.post .post-meta {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+article.post blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+  margin: 16px 0;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* Post list (blog index, case-studies index, research index) */
+.post-list { display: grid; gap: 20px; }
+.post-card {
+  display: block;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.post-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.post-card .meta {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.post-card h3 {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.post-card p {
+  font-size: 0.92rem;
+  color: var(--text-light);
+}
+
+/* Pricing */
+.tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+.tier {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+.tier.featured { border-color: var(--accent); background: #eff6ff; }
+.tier h3 { font-size: 1.1rem; color: var(--primary); }
+.tier .price { font-size: 2rem; font-weight: 800; color: var(--primary); margin: 8px 0; }
+.tier .price small { font-size: 0.9rem; color: var(--text-light); font-weight: 400; }
+.tier ul { list-style: none; padding: 0; margin: 16px 0; flex: 1; }
+.tier li { font-size: 0.92rem; color: var(--text); padding: 6px 0; border-bottom: 1px dashed var(--border); }
+.tier li:last-child { border-bottom: none; }
+.tier .btn { width: 100%; text-align: center; }
+
+/* Footer */
+footer { padding: 40px 0; border-top: 1px solid var(--border); margin-top: 60px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+.footer-col h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+}
+.footer-col a { display: block; font-size: 0.9rem; color: var(--text-light); margin-bottom: 8px; }
+.footer-col p { font-size: 0.85rem; color: var(--text-light); }
+.copyright {
+  text-align: center; margin-top: 40px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem; color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .footer-grid, .tier-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  article.post h1 { font-size: 1.6rem; }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email deliverability in 2025 — what changed, what still works — ParisAI Labs</title>
+  <meta name="description" content="Google's bulk-sender rules, Microsoft's tenant scoring shifts, and the warmup pattern we use to keep new sending domains above 99% inbox placement.">
+  <meta name="author" content="Pierre Richard">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://parisai.click/blog/email-deliverability-warmup-2025/">
+  <meta property="og:title" content="Email deliverability in 2025 — what changed, what still works">
+  <meta property="og:description" content="Google's bulk-sender rules, Microsoft's tenant scoring shifts, and the warmup pattern we use to keep new sending domains above 99% inbox placement.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://parisai.click/blog/email-deliverability-warmup-2025/">
+  <meta property="article:published_time" content="2025-05-14">
+  <meta property="article:author" content="Pierre Richard">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Email deliverability in 2025 — what changed, what still works">
+  <meta name="twitter:description" content="Google's bulk-sender rules, Microsoft's tenant scoring shifts, and the warmup pattern we use to keep new sending domains above 99% inbox placement.">
+  <meta property="og:image" content="https://parisai.click/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="ParisAI Labs">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:image" content="https://parisai.click/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='80'>⚡</text></svg>">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="alternate" type="application/rss+xml" title="ParisAI Labs Blog" href="https://parisai.click/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://parisai.click/#website","url":"https://parisai.click","name":"ParisAI Labs","description":"AI email intelligence for e-commerce brands","publisher":{"@id":"https://parisai.click/#organization"},"inLanguage":"en"},{"@type":"Organization","@id":"https://parisai.click/#organization","name":"ParisAI Labs","alternateName":"ParisAI Labs SAS","url":"https://parisai.click","logo":"https://parisai.click/og.svg","description":"AI-powered email intelligence platform for e-commerce brands","foundingDate":"2025-03","foundingLocation":{"@type":"Place","name":"Paris, France"},"address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"},"founder":{"@id":"https://parisai.click/#founder"},"email":"pierre@parisai.click"},{"@type":"Person","@id":"https://parisai.click/#founder","name":"Pierre Richard","jobTitle":"CEO & Founder","worksFor":{"@id":"https://parisai.click/#organization"}},{"@type":"BlogPosting","@id":"https://parisai.click/blog/email-deliverability-warmup-2025/#post","headline":"Email deliverability in 2025 — what changed, what still works","description":"Google's bulk-sender rules, Microsoft's tenant scoring shifts, and the warmup pattern we use to keep new sending domains above 99% inbox placement.","datePublished":"2025-05-14","dateModified":"2025-05-14","author":{"@id":"https://parisai.click/#founder"},"publisher":{"@id":"https://parisai.click/#organization"},"url":"https://parisai.click/blog/email-deliverability-warmup-2025/","image":"https://parisai.click/og.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://parisai.click/blog/email-deliverability-warmup-2025/"},"articleSection":"operations"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parisai.click/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://parisai.click/blog/"},{"@type":"ListItem","position":3,"name":"Email deliverability in 2025 — what changed, what still works","item":"https://parisai.click/blog/email-deliverability-warmup-2025/"}]}]}</script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="logo" style="text-decoration:none">Paris<span>AI</span> Labs</a>
+      <div class="nav-links">
+        <a href="/#product">Product</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/research/">Research</a>
+        <a href="/blog/">Blog</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="mailto:pierre@parisai.click">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" style="font-size: 0.85rem; color: var(--text-light);">← All posts</a>
+    <h1>Email deliverability in 2025 — what changed, what still works</h1>
+    <div class="post-meta">2025-05-14 · operations · 6 min read · <a href="mailto:pierre@parisai.click">Pierre Richard</a></div>
+    <p>The deliverability rules quietly tightened twice in the last year. If you set up your sending infrastructure in 2023 and haven't revisited it, there's a real chance your inbox placement has been drifting down without you noticing — Postmaster reports show it lagged by 2-3 weeks. Here's what shifted, and the warmup pattern we now use on every new domain to keep placement above 99%.</p>
+<h2>What changed</h2>
+<h3>Google: bulk-sender requirements (Feb 2024 → enforced 2025)</h3>
+<p>Google's "<a href="https://support.google.com/mail/answer/81126">email sender guidelines</a>" went from suggested to enforced through 2024 for any domain sending &gt;5,000 messages/day to gmail.com addresses. The three big asks:</p>
+<ul>
+<li><strong>SPF, DKIM, and DMARC must all pass.</strong> No more skipping DMARC; Google now treats absence of a policy as a soft fail. We default to <code>p=quarantine; pct=100</code> on new domains.</li>
+<li><strong>One-click unsubscribe via <code>List-Unsubscribe-Post</code> header.</strong> RFC 8058. Has to actually work — sending feedback that doesn't unsubscribe will tank reputation.</li>
+<li><strong>Spam complaint rate must stay &lt;0.3% (target &lt;0.1%).</strong> Postmaster Tools show the rolling rate. Once you cross 0.3% sustained, placement falls off a cliff and recovery takes 3–6 weeks.</li>
+</ul>
+<p>The third one is the operational gotcha. A 0.3% complaint rate sounds easy until you do the arithmetic on a rough list — one or two angry recipients per thousand and you're toast.</p>
+<h3>Microsoft: tenant-level reputation scoring (Q4 2024)</h3>
+<p>The under-reported change. Microsoft moved from per-IP to per-tenant reputation scoring on outlook.com / hotmail.com / live.com inboxes. If your sending domain shares any infrastructure (shared IPs on a transactional ESP, in particular) with a noisy neighbour, <em>your</em> placement degrades. Two implications:</p>
+<p>1. <strong>Dedicated IPs matter more than they did.</strong> On AWS SES, the <code>dedicated-ip-pool</code> config is no longer optional once you're past ~50K/mo to Microsoft inboxes. 2. <strong>Subdomain isolation matters more than it did.</strong> Marketing should not share <code>from:</code> infrastructure with transactional. Period. We use <code>mail.parisai.click</code> for marketing and <code>transactional.parisai.click</code> for everything else, with separate DKIM keys and separate IP pools.</p>
+<h3>Yahoo / AOL: aligned with Google, mostly</h3>
+<p>Yahoo (which still includes AOL) adopted essentially the same bulk-sender requirements in early 2024. SPF/DKIM/DMARC, list-unsubscribe header, complaint-rate cap. Differences are minor enough to not worth covering separately.</p>
+<h2>The warmup pattern that still works in 2025</h2>
+<p>The basics haven't changed: gradually ramp send volume on a new domain to give receivers time to build a positive reputation profile. What did change is the ramp schedule and the kind of mail you send during it.</p>
+<p>Our 30-day warmup for a new sending domain:</p>
+<pre><code>Day  1 :    50 mails to known-engaged addresses
+Day  2 :   100
+Day  3 :   200
+Day  4 :   400
+Day  5 :   800
+Day  6 :  1,200
+Day  7 :  1,600  → first weekend, hold flat
+Day  8 :  2,000
+Day  9 :  3,000
+Day 10 :  4,000
+Day 11 :  5,000
+Day 12 :  6,000
+Day 13 :  7,000
+Day 14 :  8,000  → second weekend, hold flat
+Days 15–30 : ramp to target steady-state, +20% per business day</code></pre>
+<p>Two non-obvious things in here:</p>
+<h3>1. The first 7 days must be to known-engaged addresses</h3>
+<p>"Known-engaged" means recipients you have evidence will open and respond to your mail. For us, that's our team mailboxes, design partners who've replied in the last 30 days, and a small cohort of engaged beta users we've explicitly told to expect warmup mails. This is not the warmup-tool seed-list pattern (those don't help anymore — Google detects the inbox-bot pattern). It's actual humans who'll actually engage.</p>
+<p>If you don't have known-engaged addresses, the warmup will fail. Build the engagement layer first, then warm up.</p>
+<h3>2. The "weekend hold" reduces the ramp slope</h3>
+<p>Friday night sending, Saturday silence, Monday resume — but at the same volume you were at Friday, not at Friday × 1.2. Receivers are more lenient about a flat curve than a step function over the weekend. Costs you a day, saves you a placement drop.</p>
+<h2>What still works</h2>
+<p>The non-changing fundamentals worth re-stating because people forget them:</p>
+<ul>
+<li><strong>DMARC report monitoring.</strong> Spin up Valimail or DMARC Digests on <code>_dmarc</code> aggregate reports. You will catch a domain spoofing your <code>from:</code> within 48 hours of it starting; without monitoring, you find out when placement craters six weeks later.</li>
+<li><strong>Strict from-name pattern.</strong> <code>Pierre Richard &lt;pierre@parisai.click&gt;</code> reads as a person; <code>noreply@parisai.click</code> reads as a list. Personal-name <code>from:</code> lifts placement on Gmail by 2-4% in our A/B logs.</li>
+<li><strong>Plain-text alternative.</strong> Always send a <code>text/plain</code> MIME alternative. Some receivers still penalise HTML-only mail. Costs you nothing.</li>
+<li><strong>HTML weight under 100KB.</strong> Heavy templates with embedded fonts get scored down. Our cold outreach is intentionally text-mostly with a single signature image.</li>
+</ul>
+<h2>What stopped working</h2>
+<p>Three patterns that worked in 2022 and don't anymore:</p>
+<ul>
+<li><strong>Buying "warmed" sending domains from marketplaces.</strong> They don't carry reputation across an ownership change anymore. The receivers track domain-DKIM-key-signing patterns and a key rotation triggers a fresh trust window.</li>
+<li><strong>Inbox-rotation tools (Mailshake-pattern multi-mailbox warmups).</strong> Google flags the synthetic engagement pattern. Don't.</li>
+<li><strong>Cold-list scraping.</strong> Even with perfect deliverability tech, sending to a list with &gt;2% bounce rate burns reputation faster than warmup builds it. Validate before sending. We use BriteVerify; alternatives exist.</li>
+</ul>
+<h2>How we measure success</h2>
+<p>The single number we watch is <strong>Postmaster's "User-reported spam rate"</strong> on a 7-day rolling window. Anything below 0.1% means we're operating safely. 0.1–0.2% is yellow — investigate which campaign or which list segment is causing it. Above 0.2% we pause new sends from that domain and run an audit.</p>
+<p>The supporting numbers (delivery errors, IP reputation, domain reputation) all matter, but they're lagging indicators. The complaint rate is what predicts placement first.</p>
+<h2>TL;DR</h2>
+<p>Most of the deliverability "secrets" still come down to: send wanted mail, send it from properly-authenticated infrastructure, ramp slowly, and monitor the right metric. The 2024-2025 changes aren't paradigm shifts; they're tighter enforcement of rules that were already there. The teams that get hit are mostly the ones who treated those rules as suggestions.</p>
+    <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 32px;">
+      Want this on your prospect list? <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>.
+    </p>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 12px;">Paris<span>AI</span> Labs</div>
+          <p>AI email intelligence for e-commerce brands. Based in Paris, France.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/#product">Features</a>
+          <a href="/#how-it-works">How It Works</a>
+          <a href="/pricing/">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="/blog/">Blog</a>
+          <a href="/research/">Research</a>
+          <a href="/case-studies/">Case studies</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>
+          <p style="margin-top: 8px;">Paris, France</p>
+        </div>
+      </div>
+      <div class="copyright">&copy; 2026 ParisAI Labs SAS. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>

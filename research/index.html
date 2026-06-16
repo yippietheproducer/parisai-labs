@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research — ParisAI Labs</title>
+  <meta name="description" content="ParisAI Labs research notes — applied work on email intent scoring, LLM personalization, and the operational detail that makes AI email pipelines run.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://parisai.click/research/">
+  <meta property="og:title" content="Research — ParisAI Labs">
+  <meta property="og:description" content="Applied research on AI email intelligence and prospect scoring.">
+  <meta property="og:url" content="https://parisai.click/research/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ParisAI Labs">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Research — ParisAI Labs">
+  <meta name="twitter:description" content="Applied research on AI email intelligence and prospect scoring.">
+  <meta property="og:image" content="https://parisai.click/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://parisai.click/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.88em' font-size='80'>⚡</text></svg>">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://parisai.click/#website","url":"https://parisai.click","name":"ParisAI Labs","description":"AI email intelligence for e-commerce brands","publisher":{"@id":"https://parisai.click/#organization"},"inLanguage":"en"},{"@type":"Organization","@id":"https://parisai.click/#organization","name":"ParisAI Labs","alternateName":"ParisAI Labs SAS","url":"https://parisai.click","logo":"https://parisai.click/og.svg","description":"AI-powered email intelligence platform for e-commerce brands","foundingDate":"2025-03","foundingLocation":{"@type":"Place","name":"Paris, France"},"address":{"@type":"PostalAddress","addressLocality":"Paris","addressCountry":"FR"},"founder":{"@id":"https://parisai.click/#founder"},"email":"pierre@parisai.click"},{"@type":"Person","@id":"https://parisai.click/#founder","name":"Pierre Richard","jobTitle":"CEO & Founder","worksFor":{"@id":"https://parisai.click/#organization"}},{"@type":"CollectionPage","@id":"https://parisai.click/research/#page","name":"Research — ParisAI Labs","url":"https://parisai.click/research/","isPartOf":{"@id":"https://parisai.click/#website"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://parisai.click/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://parisai.click/research/"}]}]}</script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="logo" style="text-decoration:none">Paris<span>AI</span> Labs</a>
+      <div class="nav-links">
+        <a href="/#product">Product</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/research/">Research</a>
+        <a href="/blog/">Blog</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="mailto:pierre@parisai.click">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="post" style="max-width: 760px;">
+    <span class="pill">Applied research</span>
+    <h1 style="margin-top: 14px;">Research</h1>
+    <p style="color: var(--text-light); font-size: 1.05rem;">
+      We publish what we learn building production email infrastructure on AWS Bedrock. The goal isn't novelty
+      — it's writing down the answers we wish someone else had written down for us. Three areas of focus.
+    </p>
+
+    <h2>1. Intent inference from open signals</h2>
+    <p>
+      How much of "is this prospect going to convert?" can be predicted from public signals alone — site
+      content, product catalog, hiring posts, blog cadence — without enrichment from third-party data
+      brokers? We've found you can hit AUC ≈ 0.79 on a Shopify-merchant population using only public
+      signals scraped at indexing time. That's commercially meaningful.
+    </p>
+    <p>
+      <a href="/blog/intent-scoring-on-shopify-stores/">Read the deep-dive on the 40 features that drive most of the score</a>.
+    </p>
+
+    <h2>2. LLM personalization at production scale</h2>
+    <p>
+      The naive prompt template that works on 10 generations breaks at 10,000. We track failure modes:
+      hallucinated product names, brand-voice drift, repetition across a list, the LLM
+      catastrophically misreading a niche. Defending against each requires its own evaluator, run on
+      every output before it goes to SES.
+    </p>
+    <p>
+      Current eval stack runs in-process: a fact-check pass against the structured prospect record, a
+      tone-classifier, a similarity check against the last 200 outputs from the same campaign. Together
+      they catch ~94% of issues before send. The remaining 6% gets human review on the Growth plan.
+    </p>
+
+    <h2>3. Deliverability as an engineering problem</h2>
+    <p>
+      Deliverability isn't a marketing problem; it's an infrastructure problem with a marketing UI. We
+      treat it the same way we'd treat database replication lag: instrumented, alerting, runbook'd.
+      Postmaster Tools complaint rate, SNDS reputation, and our own ingest of bounce-NDR codes feed a
+      weighted health score per sending domain. Below 0.85 we automatically throttle.
+    </p>
+    <p>
+      <a href="/blog/email-deliverability-warmup-2025/">The 2025 warmup pattern we use on every new domain</a>.
+    </p>
+
+    <h2>What we don't research</h2>
+    <p>
+      We don't publish thinly-sourced "AI trends" content. We don't run pre-print papers. The goal is
+      to be a useful resource for someone building a similar system, not to compete on academic novelty.
+      If we discover something genuinely new, the right place for it is a paper, and we'll do the
+      separate work to publish it properly.
+    </p>
+
+    <h2>Collaboration</h2>
+    <p>
+      If you're working on adjacent problems and want to compare notes, write to
+      <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>. We're particularly interested in
+      anyone working on <em>cross-tenant abuse signal sharing</em> for cold email — that one's hard
+      and we don't have a clean answer yet.
+    </p>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 12px;">Paris<span>AI</span> Labs</div>
+          <p>AI email intelligence for e-commerce brands. Based in Paris, France.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="/#product">Features</a>
+          <a href="/pricing/">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="/blog/">Blog</a>
+          <a href="/research/">Research</a>
+          <a href="/case-studies/">Case studies</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:pierre@parisai.click">pierre@parisai.click</a>
+          <p style="margin-top: 8px;">Paris, France</p>
+        </div>
+      </div>
+      <div class="copyright">&copy; 2026 ParisAI Labs SAS.</div>
+    </div>
+  </footer>
+</body>
+</html>

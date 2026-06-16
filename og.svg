@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g transform="translate(80, 110)">
+    <!-- bolt mark (vector path, no font dependency) -->
+    <path d="M52 0 L20 56 L40 56 L28 96 L72 40 L48 40 Z" fill="#3b82f6"/>
+    <!-- brand -->
+    <text x="100" y="56" font-family="Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="42" font-weight="700" fill="#e2e8f0" letter-spacing="-1">
+      ParisAI <tspan fill="#3b82f6">Labs</tspan>
+    </text>
+  </g>
+  <g transform="translate(80, 260)">
+    <text font-family="Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-size="68" font-weight="800" fill="#f8fafc" letter-spacing="-2">
+      <tspan x="0" dy="0">AI email intelligence</tspan>
+      <tspan x="0" dy="86">for e-commerce brands</tspan>
+    </text>
+  </g>
+  <g transform="translate(80, 470)">
+    <text font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="500" fill="#94a3b8">
+      Score prospect intent. Generate personalized outreach.
+    </text>
+    <text x="0" y="44" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="500" fill="#94a3b8">
+      Built on AWS Bedrock. Paris, France.
+    </text>
+  </g>
+  <g transform="translate(80, 580)">
+    <text font-family="ui-monospace, SFMono-Regular, monospace" font-size="22" font-weight="500" fill="#3b82f6">parisai.click</text>
+  </g>
+  <!-- accent stripe -->
+  <rect x="0" y="0" width="6" height="630" fill="url(#accent)"/>
+</svg>
